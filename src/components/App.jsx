@@ -1,11 +1,38 @@
-import Post from "./Gallery/Post/Post";
+import { Component } from "react";
+
+import Searchbar from "./Gallery/Searchbar/Searchbar";
 import css from "./App.module.css"
+import ImageGalleryIten from "./Gallery/ImageGalleryItem/ImageGalleryItem";
 
 
-export const App = () => {
-  return (
-    <div className={css.App} >
-      <Post/>
-    </div>
-  );
-};
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+class App extends Component {
+  state = {   
+    search: '',    
+  };
+
+  handelSearchForm = data => {
+    this.setState({
+      search: data,
+
+    });
+  };
+  render() {
+    const {handelSearchForm}=this;
+    const {search}=this.state
+    return (
+      <div className={css.App}>
+        <ToastContainer autoClose={5000} />
+        <Searchbar onSubmit={handelSearchForm} />
+        <ImageGalleryIten searchItem={search}  />
+     
+      </div>
+    );
+  }
+}
+
+
+
+export  {App}
