@@ -25,8 +25,7 @@ export default class ImageGalleryIten extends Component {
     if (prevSearch !== nextSearch || page !== prevState.page) {
       this.setState({
         isLoading: true,
-        //page:this.props.defpage,
-        hits: [],
+
         totalHits: '',
       });
       try {
@@ -58,6 +57,7 @@ export default class ImageGalleryIten extends Component {
 
   handelSearchForm = data => {
     this.setState({
+      hits:[],
       search: data,
       page: 1,
     });
