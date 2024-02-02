@@ -20,8 +20,8 @@
 
 .close{
   position: absolute;
-   top:-25px;
-  right: -25px;
+   top:5px;
+  right: 5px;
   font-weight: bold;
   font-size: 18px;
   color:  red;

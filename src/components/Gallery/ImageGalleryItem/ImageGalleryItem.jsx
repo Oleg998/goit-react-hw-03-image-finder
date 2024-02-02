@@ -4,30 +4,34 @@ import Button from '../Button/Button';
 import Modal from 'components/Modal/Modal';
 import Loader from 'components/Loader/Loader';
 import ImageGallery from '../ImageGallery/ImageGallery';
+import Searchbar from '../Searchbar/Searchbar';
 
 export default class ImageGalleryIten extends Component {
   state = {
+    search:"",
     hits: [],
     isLoading: false,
     error: null,
     page: 1,
     openModal: false,
     imgDetails: {},
+    totalHits: '',
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    const prevSearch = prevProps.searchItem;
-    const nextSearch = this.props.searchItem;
-    if (prevSearch !== nextSearch || this.state.page !== prevState.page) {
+    const{search , page}=this.state
+    const prevSearch = prevState.search;
+    const nextSearch = search;
+    if (prevSearch !== nextSearch || page !== prevState.page) {
       this.setState({
         isLoading: true,
+        //page:this.props.defpage,
         hits: [],
-        page: 1,
         totalHits: '',
       });
       try {
         const { data } = await searceImg(nextSearch, this.state.page);
-        console.log(data);
+
         this.setState(({ hits }) => ({
           hits: data.hits?.length ? [...hits, ...data.hits] : hits,
           totalHits: data.totalHits,
@@ -52,18 +56,27 @@ export default class ImageGalleryIten extends Component {
     this.setState({ openModal: false, imgDetails: {} });
   };
 
-  render() {
-    const { LoadMore, closeModal, showModal } = this;
-    const { hits, isLoading, error, openModal, imgDetails } = this.state;
+  handelSearchForm = data => {
+    this.setState({
+      search: data,
+      page: 1,
+    });
+  };
 
-    const isImg = Boolean(hits.length);
+  render() {
+    const { LoadMore, closeModal, showModal, handelSearchForm } = this;
+    const { hits, isLoading, error, openModal, imgDetails, totalHits, page } =
+      this.state;
+    const totalPage = Math.ceil(totalHits / 12);
+
     return (
       <>
         {error && <p>..............{error}..................</p>}
         {isLoading && <Loader></Loader>}
+        <Searchbar onSubmit={handelSearchForm} />
         <ImageGallery hits={hits} showModal={showModal} />
 
-        {isImg && (
+        {totalPage > page && (
           <Button onClick={LoadMore} type="button">
             Load more
           </Button>
