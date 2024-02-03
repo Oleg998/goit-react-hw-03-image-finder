@@ -4,7 +4,6 @@ import Button from './Gallery/Button/Button';
 import Loader from './Gallery/Loader/Loader';
 import ImageGallery from './Gallery/ImageGallery/ImageGallery';
 import Searchbar from './Gallery/Searchbar/Searchbar';
-
 import css from './App.module.css';
 
 import { ToastContainer } from 'react-toastify';
@@ -13,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
-    search: '',
+    query: '',
     gallery: [],
     isLoading: false,
     error: null,
@@ -22,9 +21,9 @@ class App extends Component {
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    const { search, page } = this.state;
+    const { query, page } = this.state;
     const prevSearchQuery = prevState.search;
-    const nextSearchQuery = search;
+    const nextSearchQuery = query;
     if (prevSearchQuery !== nextSearchQuery || page !== prevState.page) {
       this.setState({
         isLoading: true,
@@ -56,12 +55,12 @@ class App extends Component {
   };
 
   handelSearchForm = searchQuery => {
-    if (this.state.search === searchQuery.toLowerCase()) {
+    if (this.state.query === searchQuery.toLowerCase()) {
       return toast.info(`You're already reviewing the query ${searchQuery}`);
     }
     this.setState({
       gallery: [],
-      search: searchQuery.toLowerCase(),
+      query: searchQuery.toLowerCase(),
       page: 1,
     });
   };
