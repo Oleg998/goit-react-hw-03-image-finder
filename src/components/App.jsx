@@ -22,7 +22,7 @@ class App extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
-    const prevSearchQuery = prevState.search;
+    const prevSearchQuery = prevState.query;
     const nextSearchQuery = query;
     if (prevSearchQuery !== nextSearchQuery || page !== prevState.page) {
       this.setState({
