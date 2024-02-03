@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 class Searchbar extends Component {
   state = {
     search: '',
-    page: 1,
-    hits:[],
+   
   };
 
   handleChange = ({ target }) => {
@@ -20,7 +19,7 @@ class Searchbar extends Component {
   handelSubmit = e => {
     e.preventDefault();
     if (this.state.search.trim() === '') {
-      toast.error('Enter you request');
+      toast.error('Enter text to search the gallery');
       return;
     }
     this.props.onSubmit(this.state.search);
