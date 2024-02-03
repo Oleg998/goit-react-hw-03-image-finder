@@ -22,6 +22,7 @@ export default class ImmageGalleryItem extends Component {
             className={css.ImageGalleryItemImage}
             src={webImg}
             alt={info}
+            loading="lazy"
             onClick={() => showModal({ info, modalImg })}
           />
         </li>
